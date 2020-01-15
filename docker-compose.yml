@@ -23,6 +23,7 @@ master:
   volumes:
     - ./conf/master:/conf
     - ./data:/tmp/data
+    - ./myjars/master:/myjars
 
 worker:
   image: gettyimages/spark
@@ -49,3 +50,4 @@ worker:
   volumes:
     - ./conf/worker:/conf
     - ./data:/tmp/data
+    - ./myjars/worker:/myjars

@@ -1,8 +1,8 @@
-import processing.*;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import processing.DataCleaner;
 import processing.poi.PoiAssigner;
 import processing.poi.PoiCircleMaker;
 import processing.poi.PoiStatisticCalculator;

@@ -36,7 +36,6 @@ public class PoiVisualizer {
     private Dataset<Row> plotPoiPopularity(Dataset<Row> poiData) {
         double max_upper_range = maxPopularity - averagePopularity;
         double max_lower_range = minPopularity - averagePopularity;
-        System.out.println("average pop: " + averagePopularity);
         // Scale per unit
         double higher_scale = max_upper_range / 10;
         double lower_scale = max_lower_range / 10;

@@ -44,12 +44,12 @@ public class SparkAppMain {
         requestData.setEntityDataset(cleanedRequestData);
 
         // Inserting the Processing.POI data
-        System.out.println("Inserting Processing.POI data into Spark...");
+        System.out.println("Inserting POI data into Spark...");
         poiData.setEntityDataset(DataInputHandler.readCsvData("../data/POIList.csv"));
         poiData.getEntityDataset().show();
 
         // Removing identical Processing.POI from the data
-        System.out.println("Removing duplicates from Processing.POI data...");
+        System.out.println("Removing duplicates from POI data...");
         Dataset<Row> cleanedPoiData = DataCleaner.removeExtraneousRecords(poiData.getEntityDataset(),
                 new String[]{"Latitude", "Longitude"});
         // Show change in data cleaned
@@ -59,25 +59,25 @@ public class SparkAppMain {
         poiData.setEntityDataset(cleanedPoiData);
 
         // Finding the nearest Processing.POI of each request by calculating minimum distance to each
-        System.out.println("Assigning each request with its nearest Processing.POI...");
+        System.out.println("Assigning each request with its nearest POI...");
         requestData.setEntityDataset(PoiAssigner.iteratePoiList(poiData.getEntityDataset(),
                 requestData.getEntityDataset()));
         requestData.getEntityDataset().show();
 
         // Calculating population variables
-        System.out.println("Now calculating average and standard deviation of Processing.POI distance data");
+        System.out.println("Now calculating average and standard deviation of POI distance data");
         poiData.setEntityDataset(PoiStatisticCalculator.calculateAverageAndStddevForPoi(poiData.getEntityDataset(),
                 requestData.getEntityDataset()));
         poiData.getEntityDataset().show();
 
         // Drawing circle for Processing.POI
-        System.out.println("Now drawing a circle at each Processing.POI for the assigned requests");
+        System.out.println("Now drawing a circle at each POI for the assigned requests");
         poiData.setEntityDataset(PoiCircleMaker.calculatePoiRequestDensity(poiData.getEntityDataset(),
                 requestData.getEntityDataset()));
         poiData.getEntityDataset().show();
 
         // Plotting each Processing.POI on a scale of -10 to 10
-        System.out.println("Now plotting our Processing.POI data...");
+        System.out.println("Now plotting our POI data...");
         poiData.setEntityDataset(new PoiVisualizer().plotPoiDataPopularity(poiData.getEntityDataset()));
         poiData.getEntityDataset().show();
 
